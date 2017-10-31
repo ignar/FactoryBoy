@@ -14,6 +14,7 @@ module FactoryBoy
 
   def self.build(klass_name)
     raise "Factory wasn't defined" unless @factories.include?(klass_name)
-    klass_name.new
+    klass = klass_name.is_a?(Class) ? klass_name : Object.const_get(klass_name.to_s.split('_').collect(&:capitalize).join)
+    klass.new
   end
 end
