@@ -6,17 +6,16 @@ end
 
 module FactoryBoy
 
-  @factories = []
+  @factories = {}
 
-  def self.define_factory(klass_name)
-    klass = FactoryBuilder.new(klass_name).build_to_class
-    @factories << klass
+  def self.define_factory(name, opts={})
+    klass = FactoryBuilder.new(opts[:class] || name).build_to_class
+    @factories[name] = klass
   end
 
   def self.build(klass_name)
-    klass = FactoryBuilder.new(klass_name).build_to_class
-    raise "Factory wasn't defined" unless @factories.include?(klass)
-    klass.new
+    raise "Factory wasn't defined" unless @factories.has_key?(klass_name)
+    @factories[klass_name].new
   end
 end
 
