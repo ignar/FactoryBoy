@@ -1,11 +1,6 @@
 require "factory_boy/version"
 
-class User
-  attr_accessor :name, :email
-end
-
 module FactoryBoy
-
   @factories = {}
 
   def self.define_factory(name, opts={}, &block)
@@ -27,7 +22,6 @@ module FactoryBoy
 
     object
   end
-
 end
 
 class FactoryBuilder
